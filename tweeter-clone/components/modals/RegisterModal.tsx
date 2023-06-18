@@ -1,45 +1,62 @@
 import { useCallback, useState } from "react";
-//  hooks
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
-
 
 import Input from "../Input";
 import Modal from "../Modal";
 
 
-const LoginModal = () => {
+const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
-  //переход по клику на register
+//переход по клику на login
    const onToggle = useCallback(() => {
     if (isLoading) {
       return;
     }
-    registerModal.onOpen();
-    loginModal.onClose();
-   }, [loginModal, registerModal, isLoading]);
+  
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal, isLoading]);
+  
   
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      // TODO and login
+      // TODO and register and login
 
-      loginModal.onClose()
+      registerModal.onClose()
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false);
     }
-  }, [loginModal]);
+  }, [registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
+      <Input 
+        placeholder="Name"
+        type="name"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+        disabled={isLoading} 
+      />
+      <Input 
+        placeholder="Username"
+        type="username"
+        onChange={(e) => setUsername(e.target.value)}
+        value={username}
+        disabled={isLoading} 
+      />
       <Input 
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
@@ -55,10 +72,9 @@ const LoginModal = () => {
       />
     </div>
   )
-
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
-      <p>First time using tweeter?
+      <p>Already have an account?
         <span 
           onClick={onToggle} 
           className="
@@ -66,19 +82,19 @@ const LoginModal = () => {
             cursor-pointer 
             hover:underline
           "
-          > Create an account</span>
+          > Sign in</span>
       </p>
     </div>
   )
-  
+
 
   return (
     <Modal
      disabled={isLoading}
-      isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Sign in"
-      onClose={loginModal.onClose}
+      isOpen={registerModal.isOpen}
+      title="Create an account"
+      actionLabel="Register"
+      onClose={registerModal.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
@@ -86,4 +102,4 @@ const LoginModal = () => {
   )
 }
 
-export default LoginModal;
+export default RegisterModal;
