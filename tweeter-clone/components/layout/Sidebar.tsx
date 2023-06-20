@@ -25,11 +25,13 @@ const Sidebar = () => {
       label: "Notification",
       href: "/notification",
       icon: BsBellFill,
+      auth: true,
     },
     {
       label: "Profile",
       href: "/users/123",
       icon: FaUser,
+      auth: true,
     },
   ];
   return (
@@ -43,6 +45,7 @@ const Sidebar = () => {
                 href={item.href} 
                 icon={item.icon} 
                 label={item.label}
+                auth={item.auth}
               />
             ))}
          {/* if current user login we show logOut  */}
