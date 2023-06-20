@@ -1,4 +1,7 @@
 import { useCallback, useState } from "react";
+import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
+
 //  hooks
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
@@ -6,40 +9,45 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 //  layouts
 import Input from "../Input";
 import Modal from "../Modal";
-import { signIn } from "next-auth/react";
+
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-
-  //переход по клику на register
-   const onToggle = useCallback(() => {
-    if (isLoading) {
-      return;
-    }
-    registerModal.onOpen();
-    loginModal.onClose();
-   }, [loginModal, registerModal, isLoading]);
+  const [isLoading, setIsLoading] = useState(false);
   
-  const onSubmit = useCallback(async () => {
+const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
       await signIn('credentials', {
-        email, password
-      }
-     )
+        email,
+        password,
+      });
+
+      toast.success('Logged in');
 
       loginModal.onClose()
     } catch (error) {
-      console.log(error)
+      toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
     }
-  }, [loginModal, email, password]);
+}, [email, password, loginModal]);
+  
+  //переход по клику на register
+   const onToggle = useCallback(() => {
+    // if (isLoading) {
+    //   return;
+    // }
+    registerModal.onOpen();
+    loginModal.onClose();
+   }, [loginModal, registerModal]);
+  
+  
 
   const bodyContent = (
     <div className="flex flex-col gap-4">

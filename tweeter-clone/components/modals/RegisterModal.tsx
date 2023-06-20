@@ -37,16 +37,18 @@ const RegisterModal = () => {
     try {
       setIsLoading(true);
 
-      // TODO and register and login
-      await axios.post("/api/register",
-        {
+// doing register and login
+        await axios.post('/api/register', {
+        
           // fields, that we described in register.ts
           email,
           password,
           username,
           name,
         });
-      toast.success("Account created.");
+      setIsLoading(false)
+
+      toast.success('Account created.');
 // when we successfully registered we also signIn
   signIn('credentials', {
         email,

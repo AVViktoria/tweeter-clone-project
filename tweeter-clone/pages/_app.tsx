@@ -11,21 +11,16 @@ import RegisterModal from "@/components/modals/RegisterModal";
 //       Styles
 import "../styles/globals.css";
 
-function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <SessionProvider session={pageProps.session}>
-        <Toaster/>
+    <SessionProvider session={pageProps.session}>
+      <Toaster />
       <RegisterModal />
       <LoginModal />
+      {/* <EditModal /> */}
       <Layout>
         <Component {...pageProps} />
-        </Layout>
-      </SessionProvider>
-      {/* <Modal actionLabel="Submit"  isOpen title="Test Modal"/> */}
-    </>
-   
-    
-  );
+      </Layout>
+    </SessionProvider>
+  )
 }
-export default App;
