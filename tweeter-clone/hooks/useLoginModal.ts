@@ -1,7 +1,6 @@
-// Хук на открытие и закрытие Login Modal 
-
 import { create } from 'zustand';
 
+// Хук на открытие и закрытие Login Modal 
 interface LoginModalStore {
   isOpen: boolean;
   onOpen: () => void;

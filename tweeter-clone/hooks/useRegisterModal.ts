@@ -1,7 +1,6 @@
-// Хук на открытие и закрытие Register Modal 
-
 import { create } from 'zustand';
 
+// Хук на открытие и закрытие Register Modal 
 interface RegisterModalStore {
   isOpen: boolean;
   onOpen: () => void;
