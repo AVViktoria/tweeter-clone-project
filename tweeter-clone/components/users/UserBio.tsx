@@ -4,6 +4,7 @@ import { format } from "date-fns";
 // hooks
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUser from "@/hooks/useUser";
+import useEditModal from "@/hooks/useEditModal";
 
 // components
 import Button from "../Button";
@@ -19,6 +20,9 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
   const { data: currentUser } = useCurrentUser();
   const { data: fetchedUser } = useUser(userId);
 
+  const editModal = useEditModal();
+
+
   // функция, которая запоминает когда был
   // зарегистрирован пользователь и прописывает
   //  это ниже под значком календаря
@@ -27,8 +31,8 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
       return null;
     }
 
-    return format(new Date(fetchedUser.createdAt), "MMMM yyyy");
-  }, [fetchedUser?.createdAt]);
+    return format(new Date(fetchedUser.createdAt), 'MMMM yyyy');
+  }, [fetchedUser?.createdAt])
 
   return (
     <div className="border-b-[1px] border-neutral-800 pb-4">
@@ -37,7 +41,7 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
        depending (в зависимости) the user logIn or not */}
 
         {currentUser?.id === userId ? (
-          <Button secondary label="Edit" onClick={() => {}} />
+          <Button secondary label="Edit" onClick={editModal.onOpen} />
         ) : (
           <Button onClick={() => {}} label="Follow" secondary />
         )}
@@ -47,11 +51,15 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
           <p className="text-white text-2xl font-semibold">
             {fetchedUser?.name}
           </p>
-          <p className="text-md text-neutral-500">@{fetchedUser?.username}</p>
+          <p className="text-md text-neutral-500">
+            @{fetchedUser?.username}
+          </p>
         </div>
         <div className="flex flex-col mt-4">
-          <p className="text-white">{fetchedUser?.bio}</p>
-          <div
+          <p className="text-white">
+            {fetchedUser?.bio}
+          </p>
+          <div 
             className="
               flex 
               flex-row 
@@ -59,10 +67,11 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
               gap-2 
               mt-4 
               text-neutral-500
-          "
-          >
+          ">
             <BiCalendar size={24} />
-            <p>Joined {createdAt}</p>
+            <p>
+              Joined {createdAt}
+            </p>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4 gap-6">
@@ -77,7 +86,7 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
         </div>
       </div>
     </div>
-  );
-};
-
+   );
+}
+ 
 export default UserBio;

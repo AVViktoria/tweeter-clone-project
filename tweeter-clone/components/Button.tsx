@@ -1,6 +1,6 @@
 // import { useRouter } from "next/router";
 // import { useCallback } from "react";
-interface ButtonProps{
+interface ButtonProps {
   label: string;
   secondary?: boolean;
   fullWidth?: boolean;
@@ -10,8 +10,16 @@ interface ButtonProps{
   outline?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({label, secondary, fullWidth, large, onClick, disabled, outline }) => {
-  return (
+const Button: React.FC<ButtonProps> = ({ 
+  label, 
+  secondary, 
+  fullWidth, 
+  onClick, 
+  large, 
+  disabled, 
+  outline 
+}) => {
+  return ( 
     <button
       disabled={disabled}
       onClick={onClick}
@@ -33,10 +41,11 @@ const Button: React.FC<ButtonProps> = ({label, secondary, fullWidth, large, onCl
         ${outline ? 'bg-transparent' : ''}
         ${outline ? 'border-white' : ''}
         ${outline ? 'text-white' : ''}
-      `}>
-{label}
-</button>
-  )
+      `}
+    >
+      {label}
+    </button>
+   );
 }
-
+ 
 export default Button;

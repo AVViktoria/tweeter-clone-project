@@ -4,14 +4,15 @@ interface InputProps {
   type?: string;
   disabled?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // label?: string;
+  label?: string;
 }
 
-
-const Input:React.FC<InputProps> = ({placeholder, value, type = "text", onChange, disabled}) => {
+const Input: React.FC<InputProps> = ({ placeholder, value, type = "text", onChange, disabled, label }) => {
   return (
-    <input
-     disabled={disabled}
+    <div className="w-full">
+      {label && <p className="text-xl text-white font-semibold mb-2">{label}</p>}
+      <input
+        disabled={disabled}
         onChange={onChange}
         value={value}
         placeholder={placeholder}
@@ -33,10 +34,9 @@ const Input:React.FC<InputProps> = ({placeholder, value, type = "text", onChange
           disabled:opacity-70
           disabled:cursor-not-allowed
         "
-    >
-    
-    </input>
-  )
+      />
+    </div>
+   );
 }
-
+ 
 export default Input;

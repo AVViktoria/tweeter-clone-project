@@ -18,8 +18,8 @@ const LoginModal = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
-const onSubmit = useCallback(async () => {
+
+  const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -30,24 +30,19 @@ const onSubmit = useCallback(async () => {
 
       toast.success('Logged in');
 
-      loginModal.onClose()
+      loginModal.onClose();
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
     }
-}, [email, password, loginModal]);
+  }, [email, password, loginModal]);
   
-  //переход по клику на register
-   const onToggle = useCallback(() => {
-    // if (isLoading) {
-    //   return;
-    // }
-    registerModal.onOpen();
+ //переход по клику на register
+  const onToggle = useCallback(() => {
     loginModal.onClose();
-   }, [loginModal, registerModal]);
-  
-  
+    registerModal.onOpen();
+  }, [loginModal, registerModal])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -69,7 +64,7 @@ const onSubmit = useCallback(async () => {
 
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
-      <p>First time using tweeter?
+      <p>First time using Twitter?
         <span 
           onClick={onToggle} 
           className="
@@ -81,11 +76,10 @@ const onSubmit = useCallback(async () => {
       </p>
     </div>
   )
-  
 
   return (
     <Modal
-     disabled={isLoading}
+      disabled={isLoading}
       isOpen={loginModal.isOpen}
       title="Login"
       actionLabel="Sign in"
@@ -94,7 +88,7 @@ const onSubmit = useCallback(async () => {
       body={bodyContent}
       footer={footerContent}
     />
-  )
+  );
 }
 
 export default LoginModal;
