@@ -4,7 +4,9 @@ import { format } from "date-fns";
 // hooks
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUser from "@/hooks/useUser";
+import useFollow from "@/hooks/useFollow";
 import useEditModal from "@/hooks/useEditModal";
+
 
 // components
 import Button from "../Button";
@@ -21,8 +23,8 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
   const { data: fetchedUser } = useUser(userId);
 
   const editModal = useEditModal();
-
-
+// подключаем  функцию follow в userBio
+  const { isFollowing, toggleFollow } = useFollow(userId);
   // функция, которая запоминает когда был
   // зарегистрирован пользователь и прописывает
   //  это ниже под значком календаря
@@ -39,11 +41,14 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
       <div className="flex justify-end p-2">
         {/* alternate (чередуем) buttons Edit and Follow 
        depending (в зависимости) the user logIn or not */}
-
-        {currentUser?.id === userId ? (
+         {currentUser?.id === userId ? (
           <Button secondary label="Edit" onClick={editModal.onOpen} />
         ) : (
-          <Button onClick={() => {}} label="Follow" secondary />
+          <Button
+            onClick={toggleFollow} 
+            label={isFollowing ? 'Unfollow' : 'Follow'}
+            secondary={!isFollowing}
+            outline={isFollowing}/>
         )}
       </div>
       <div className="mt-8 px-4">
