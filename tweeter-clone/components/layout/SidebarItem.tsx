@@ -4,6 +4,7 @@ import { useCallback } from "react";
 //hooks
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
+import { BsDot } from 'react-icons/bs';
 
 // icons
 import { IconType } from "react-icons";
@@ -15,6 +16,7 @@ interface SidebarItemProps {
   href?: string;
   onClick?: () => void;
   auth?: boolean;
+  alert?: boolean;
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
@@ -22,28 +24,29 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   href,
   icon: Icon,
   onClick,
-  auth
+  auth,
+  alert
 }) => {
 // add currentUser and loginModal Open
+   const router = useRouter();
   const loginModal = useLoginModal();
+
   const { data: currentUser } = useCurrentUser();
 
-
-  const router = useRouter();
   const handleClick = useCallback(() => {
     if (onClick) {
       return onClick();
     }
 // if we not logIn, than open loginModal
-    if (auth && !currentUser) {
+   if (auth && !currentUser) {
       loginModal.onOpen();
-    }else if (href) {
-      router.push(href)
+    } else if (href) {
+      router.push(href);
     }
-    
-  },[router, onClick, href, auth, currentUser, loginModal])
+  }, [router, href, auth, loginModal, onClick, currentUser]);
+
   return (
-    <div onClick={handleClick}    className="flex flex-row items-center">
+    <div onClick={handleClick} className="flex flex-row items-center">
       <div className="
         relative
         rounded-full 
@@ -59,12 +62,13 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         lg:hidden
       ">
         <Icon size={28} color="white" />
+        {alert ? <BsDot className="text-sky-500 absolute -top-4 left-0" size={70} /> : null}
       </div>
       <div className="
         relative
         hidden 
         lg:flex 
-        items-center 
+        items-row 
         gap-4 
         p-4 
         rounded-full 
@@ -77,9 +81,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         <p className="hidden lg:block text-white text-xl">
           {label}
         </p>
+        {alert ? <BsDot className="text-sky-500 absolute -top-4 left-0" size={70} /> : null}
       </div>
     </div>
   );
-};
+}
 
 export default SidebarItem;
