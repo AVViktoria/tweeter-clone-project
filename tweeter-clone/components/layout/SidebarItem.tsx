@@ -10,9 +10,9 @@ import { IconType } from "react-icons";
 
 
 interface SidebarItemProps {
-  label: string;
-  href?: string;
+   label: string;
   icon: IconType;
+  href?: string;
   onClick?: () => void;
   auth?: boolean;
 }

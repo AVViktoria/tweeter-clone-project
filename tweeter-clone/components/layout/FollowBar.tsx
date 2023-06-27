@@ -1,13 +1,14 @@
-import useUsers from "@/hooks/useUsers";
-import Avatar from "../Avatar";
-// import { useRouter } from "next/router";
+import useUsers from '@/hooks/useUsers';
+
+import Avatar from '../Avatar';
 
 const FollowBar = () => {
   const { data: users = [] } = useUsers();
-  // const router = useRouter();
+
   if (users.length === 0) {
     return null;
   }
+
   return (
     <div className="px-6 py-4 hidden lg:block">
       <div className="bg-neutral-800 rounded-xl p-4">
