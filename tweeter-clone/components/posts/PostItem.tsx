@@ -30,11 +30,11 @@ const { hasLiked, toggleLike } = useLike({ postId: data.id, userId});
       // елемент перестает быть кликабельным
       event.stopPropagation();
 
-      router.push(`/users?userId=${data.user.id}`)
+       router.push(`/users/${data.user.id}`)
   }, [router, data.user.id]);
 
   const goToPost = useCallback(() => {
-    router.push(`/posts?postId=${data.id}`);
+   router.push(`/posts/${data.id}`);
   }, [router, data.id]);
 
   const onLike = useCallback(async (ev: any) => {

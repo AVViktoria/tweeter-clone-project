@@ -8,8 +8,10 @@ import Form from "@/components/Form";
 import PostItem from "@/components/posts/PostItem";
 import CommentFeed from "@/components/posts/CommentFeed";
 
+interface pageProps {}
 
-const PostView = () => {
+const PostView: React.FC<pageProps> = ({}) => {
+// const PostView = () => {
   const router = useRouter();
   const { postId } = router.query;
 
@@ -25,7 +27,7 @@ const PostView = () => {
   return ( 
     <>
       <Header showBackArrow label="Tweet" />
-      <PostItem data={fetchedPost} />
+      <PostItem data={fetchedPost}  userId={fetchedPost.userId} />
       <Form postId={postId as string} isComment placeholder="Tweet your reply" />
       <CommentFeed comments={fetchedPost?.comments} />
     </>
