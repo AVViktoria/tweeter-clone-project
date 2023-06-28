@@ -3,7 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from '@/libs/prismadb';
 import serverAuth from "@/libs/serverAuth";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST' && req.method !== 'DELETE') {
     return res.status(405).end();
   }
@@ -66,7 +67,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === 'DELETE') {
-      updatedLikedIds = updatedLikedIds.filter((likedId) => likedId !== currentUser?.id);
+      updatedLikedIds = updatedLikedIds.filter
+        ((likedId) => likedId !== currentUser?.id);
     }
 
     const updatedPost = await prisma.post.update({

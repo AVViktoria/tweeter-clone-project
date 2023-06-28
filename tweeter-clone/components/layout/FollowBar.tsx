@@ -1,8 +1,10 @@
 import useUsers from '@/hooks/useUsers';
 
 import Avatar from '../Avatar';
+interface FollowBarProps {}
 
-const FollowBar = () => {
+const FollowBar: React.FC<FollowBarProps> = ({}) => {
+// const FollowBar = () => {
   const { data: users = [] } = useUsers();
 
   if (users.length === 0) {
