@@ -1,5 +1,5 @@
 'use client'
-
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/router";
 import { ClipLoader } from "react-spinners";
 
@@ -13,8 +13,10 @@ import UserBio from "@/components/users/UserBio";
 import UserHero from "@/components/users/UserHero";
 
 const UserView = () => {
-  const router = useRouter();
-  const { userId } = router.query;
+   const searchParams = useSearchParams()
+  const userId = searchParams?.get('userId')
+  // const router = useRouter();
+  // const { userId } = router.query;
 
   // make fetch with hook
   const { data: fetchedUser, isLoading } = useUser(userId as string);

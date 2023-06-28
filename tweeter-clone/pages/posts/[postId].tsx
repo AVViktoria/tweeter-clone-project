@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { ClipLoader } from "react-spinners";
-
+import { useSearchParams } from 'next/navigation'
 import usePost from "@/hooks/usePost";
 // components
 import Header from "@/components/Header";
@@ -10,10 +10,12 @@ import CommentFeed from "@/components/posts/CommentFeed";
 
 interface pageProps {}
 
-const PostView: React.FC<pageProps> = ({}) => {
+const PostView: React.FC<pageProps> = ({ }) => {
+  const searchParams = useSearchParams()
+  const postId = searchParams?.get('postId')
 // const PostView = () => {
-  const router = useRouter();
-  const { postId } = router.query;
+  // const router = useRouter();
+  // const { postId } = router.query;
 
   const { data: fetchedPost, isLoading } = usePost(postId as string);
 
